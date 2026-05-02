@@ -104,7 +104,7 @@
       <div class="col-md-6">
         <div class="card shadow-lg border-0">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8042.357575453172!2d39.2425!3d-6.7948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4e2b2c5b0a2b%3A0x123456789abcdef!2sRufungira%2C%20Sam%20Nujoma%20Road%2C%20Dar%20es%20Salaam%2C%20Tanzania!5e0!3m2!1sen!2stz!4v1692240000000!5m2!1sen!2stz"
+            src="https://www.google.com/maps?q=-6.768028,39.225917&z=17&output=embed"
             width="100%"
             height="400"
             style="border: 0"
