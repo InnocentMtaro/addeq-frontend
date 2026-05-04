@@ -20,8 +20,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="text-center mb-5 display-6 fw-bold text-primary">
-    <h1>Our Projects</h1>
+  <div class="container py-5">
+    <h1 class="text-center mb-5 display-6 fw-bold text-primary">
+      Our Projects
+    </h1>
 
     <div class="grid">
       <div
@@ -51,7 +53,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 body {
   font-family: Arial, sans-serif;
 }
@@ -157,14 +159,16 @@ body {
 }
 
 .images {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 10px;
+  width: 100%;
 }
 
 .images img {
-  width: 400px;
-  height: 350px;
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
   object-fit: cover;
 }
 </style>

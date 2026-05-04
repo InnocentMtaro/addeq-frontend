@@ -56,21 +56,12 @@
 
 <style scoped>
 .custom-navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-weight: bold;
-  /*background: rgba(255, 255, 255, 0.08);*/
+  padding: 10px 20px;
   background: rgba(0, 0, 0, 0.3);
   color: white;
   backdrop-filter: blur(15px) saturate(140%);
   -webkit-backdrop-filter: blur(10px);
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  z-index: 1000;
 }
 </style>

@@ -41,6 +41,13 @@ import ProjectAlbums from "./components/ProjectAlbums.vue";
   min-height: 100vh;
   padding-top: 70px;
   padding-bottom: 20px;
+  overflow-x: hidden; /* prevents any component from causing horizontal scroll */
+}
+
+@media (max-width: 991px) {
+  .app {
+    padding-top: 60px;
+  }
 }
 
 section {
