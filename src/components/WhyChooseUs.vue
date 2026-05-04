@@ -95,8 +95,11 @@ export default {
 }
 .reason-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0px 12px 30px rgba(0, 0, 0, 0.15),
+    0 0 0 2px rgba(13, 110, 253, 0.3);
 }
+
 .icon-circle {
   width: 80px;
   height: 80px;
@@ -112,15 +115,18 @@ export default {
   width: 50%;
   height: 50%;
   object-fit: contain;
-  transition: filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 /* On card hover change the icon color */
-/*
+
 .reason-card:hover .icon-circle img {
   transform: scale(1.2);
-  filter: brightness(0) saturate(100%) invert(31%) sepia(97%) saturate(2084%) hue-rotate(199deg) brightness(95%) contrast(97%);
-}*/
+  filter: brightness(0) saturate(100%) invert(31%) sepia(97%) saturate(2084%)
+    hue-rotate(199deg) brightness(95%) contrast(97%);
+}
 
 /* === New Animation for Load-in Effect === */
 @keyframes fadeInUp {

@@ -4,7 +4,8 @@
       <div class="text-center mb-5">
         <h1 class="fw-bold">Our Services</h1>
         <p class="text-muted lead mb-0">
-          Full-stack construction & interior design solutions — from concept to handover.
+          Full-stack construction & interior design solutions — from concept to
+          handover.
         </p>
       </div>
 
@@ -17,7 +18,7 @@
         >
           <div
             class="card service-card h-100 shadow-lg border-0 rounded-4 p-4"
-            :style="{ animationDelay: (i * 0.15) + 's' }"
+            :style="{ animationDelay: i * 0.15 + 's' }"
           >
             <!-- icon -->
             <div class="icon-circle mx-auto mb-3">
@@ -75,8 +76,7 @@ export default {
         {
           title: "Architectural Design",
           icon: "bi-building",
-          desc:
-            "Contemporary, functional designs aligned with your goals and site context.",
+          desc: "Contemporary, functional designs aligned with your goals and site context.",
           points: [
             "Concept & schematic design",
             "Permit & construction drawings",
@@ -86,8 +86,7 @@ export default {
         {
           title: "Interior Design",
           icon: "bi-palette",
-          desc:
-            "Aesthetic, ergonomic interiors that balance style, comfort, and durability.",
+          desc: "Aesthetic, ergonomic interiors that balance style, comfort, and durability.",
           points: [
             "Mood boards & material specs",
             "Space planning & joinery details",
@@ -97,8 +96,7 @@ export default {
         {
           title: "Renovations & Fit-outs",
           icon: "bi-hammer",
-          desc:
-            "Transform existing spaces with minimal disruption and maximum impact.",
+          desc: "Transform existing spaces with minimal disruption and maximum impact.",
           points: [
             "Structural & cosmetic upgrades",
             "Commercial & residential fit-outs",
@@ -108,8 +106,7 @@ export default {
         {
           title: "Project Management",
           icon: "bi-kanban",
-          desc:
-            "On-time, on-budget delivery with rigorous coordination and reporting.",
+          desc: "On-time, on-budget delivery with rigorous coordination and reporting.",
           points: [
             "Scheduling & procurement",
             "Site supervision & QA/QC",
@@ -119,8 +116,7 @@ export default {
         {
           title: "3D Visualization & BIM",
           icon: "bi-cpu",
-          desc:
-            "See it before we build it — precise visuals for clarity and confidence.",
+          desc: "See it before we build it — precise visuals for clarity and confidence.",
           points: [
             "3D renders & animations",
             "BIM coordination",
@@ -130,8 +126,7 @@ export default {
         {
           title: "MEP & Smart Upgrades",
           icon: "bi-lightning-charge",
-          desc:
-            "Efficient mechanical, electrical & plumbing with smart integrations.",
+          desc: "Efficient mechanical, electrical & plumbing with smart integrations.",
           points: [
             "Energy-efficient systems",
             "Smart home/office solutions",
@@ -152,14 +147,18 @@ export default {
 /* Card look & motion */
 .service-card {
   background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  transform: translateY(18px);
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.18),
+    0 0 0 2px rgba(13, 110, 253, 0.3);
 }
 
 /* Icon circle (consistent with your WhyChooseUs style) */
@@ -179,9 +178,13 @@ export default {
 
 /* Reveal animation */
 @keyframes fadeUp {
+  from {
+    opacity: 0;
+    margin-top: 18px;
+  }
   to {
-    transform: translateY(0);
     opacity: 1;
+    margin-top: 0px;
   }
 }
 
