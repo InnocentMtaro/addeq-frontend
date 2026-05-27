@@ -11,7 +11,7 @@ const selectPost = (post) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/posts/");
+    const response = await axios.get("https://addeq-backend-wzdx.vercel.app/api/posts/");
     posts.value = response.data;
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -32,7 +32,7 @@ onMounted(async () => {
         :key="post.id"
         @click="selectPost(post)"
       >
-        <img :src="'http://127.0.0.1:8000' + post.thumbnail" />
+        <img :src="post.thumbnail" />
         <h3>{{ post.title }}</h3>
       </div>
     </div>
@@ -44,7 +44,7 @@ onMounted(async () => {
         <img
           v-for="(img, index) in selectedPost.images"
           :key="index"
-          :src="'http://127.0.0.1:8000' + img.image"
+          :src="img.image"
         />
       </div>
 
