@@ -138,7 +138,7 @@ const submitForm = async () => {
   errorMessage.value = "";
 
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/contact/", {
+    const response = await axios.post("https://addeq-backend-wzdx.vercel.app/api/contact/", {
       full_name: full_name.value,
       email: email.value,
       subject: subject.value,
