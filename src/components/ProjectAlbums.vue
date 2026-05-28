@@ -3,10 +3,14 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const posts = ref([]);
-const selectedPost = ref(null);
+const expandedPostId = ref(null);
 
-const selectPost = (post) => {
-  selectedPost.value = post;
+const togglePost = (post) => {
+  if (expandedPostId.value === post.id) {
+    expandedPostId.value = null;
+  } else {
+    expandedPostId.value = post.id;
+  }
 };
 
 onMounted(async () => {
@@ -30,25 +34,34 @@ onMounted(async () => {
         class="card"
         v-for="post in posts"
         :key="post.id"
-        @click="selectPost(post)"
+        :class="{ expanded: expandedPostId === post.id }"
+        @click="togglePost(post)"
       >
         <img :src="post.thumbnail" />
         <h3>{{ post.title }}</h3>
+
+        <!-- Additional images, shown only when this card is expanded -->
+        <div
+          v-if="expandedPostId === post.id && post.images.length > 0"
+          class="additional-images"
+          @click.stop
+        >
+          <img
+            v-for="(img, index) in post.images"
+            :key="index"
+            :src="img.image"
+          />
+        </div>
+
+        <!-- Collapse hint -->
+        <div
+          v-if="expandedPostId === post.id"
+          class="collapse-hint"
+          @click.stop="expandedPostId = null"
+        >
+          ▲ Close
+        </div>
       </div>
-    </div>
-
-    <div v-if="selectedPost" class="gallery">
-      <h2>{{ selectedPost.title }}</h2>
-
-      <div class="images">
-        <img
-          v-for="(img, index) in selectedPost.images"
-          :key="index"
-          :src="img.image"
-        />
-      </div>
-
-      <button @click="selectedPost = null" class="buttonBack">Back</button>
     </div>
   </div>
 </template>
@@ -57,49 +70,13 @@ onMounted(async () => {
 body {
   font-family: Arial, sans-serif;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
   padding: 0 16px 24px;
   box-sizing: border-box;
-}
-
-.buttonBack {
-  display: inline-block;
-  padding: 12px 24px;
-  font-family: "Inter", sans-serif; /* Professional sans-serif font */
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px; /* Smooth, modern rounding */
-  margin: 1rem;
-  /* Colors & Depth */
-  background-color: #007bff;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  /* Smooth interaction */
-  transition: all 0.3s ease;
-}
-
-.buttonBack:hover {
-  background-color: #0056b3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
-}
-
-.buttonBack:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.buttonBack:focus {
-  outline: 3px solid rgba(0, 123, 255, 0.4);
-  outline-offset: 2px;
 }
 
 .card {
@@ -154,21 +131,45 @@ body {
   text-align: left;
 }
 
-.gallery {
-  margin-top: 20px;
+/* Expanded card state */
+.card.expanded {
+  border-color: rgba(0, 123, 255, 0.35);
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.08),
+    0 14px 40px rgba(15, 23, 42, 0.15);
 }
 
-.images {
+/* Additional images grid inside the card */
+.additional-images {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 10px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-.images img {
+.additional-images img {
   width: 100%;
-  max-width: 400px;
-  height: 250px;
+  height: 100px;
   object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Close hint at the bottom of expanded card */
+.collapse-hint {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  padding: 6px;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.collapse-hint:hover {
+  color: #007bff;
 }
 </style>
