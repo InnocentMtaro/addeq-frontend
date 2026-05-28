@@ -4,12 +4,23 @@ import axios from "axios";
 
 const posts = ref([]);
 const expandedPostId = ref(null);
+const expandedImageIndex = ref(null);
 
 const togglePost = (post) => {
   if (expandedPostId.value === post.id) {
     expandedPostId.value = null;
+    expandedImageIndex.value = null;
   } else {
     expandedPostId.value = post.id;
+    expandedImageIndex.value = null;
+  }
+};
+
+const toggleImage = (index) => {
+  if (expandedImageIndex.value === index) {
+    expandedImageIndex.value = null;
+  } else {
+    expandedImageIndex.value = index;
   }
 };
 
@@ -37,7 +48,7 @@ onMounted(async () => {
         :class="{ expanded: expandedPostId === post.id }"
         @click="togglePost(post)"
       >
-        <img :src="post.thumbnail" />
+        <img :src="post.thumbnail" class="thumbnail" />
         <h3>{{ post.title }}</h3>
 
         <!-- Additional images, shown only when this card is expanded -->
@@ -46,18 +57,22 @@ onMounted(async () => {
           class="additional-images"
           @click.stop
         >
-          <img
+          <div
             v-for="(img, index) in post.images"
             :key="index"
-            :src="img.image"
-          />
+            class="image-wrapper"
+            :class="{ 'image-expanded': expandedImageIndex === index }"
+            @click="toggleImage(index)"
+          >
+            <img :src="img.image" />
+          </div>
         </div>
 
         <!-- Collapse hint -->
         <div
           v-if="expandedPostId === post.id"
           class="collapse-hint"
-          @click.stop="expandedPostId = null"
+          @click.stop="expandedPostId = null; expandedImageIndex = null"
         >
           ▲ Close
         </div>
@@ -112,7 +127,7 @@ body {
   outline-offset: 3px;
 }
 
-.card img {
+.thumbnail {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -142,22 +157,49 @@ body {
 /* Additional images grid inside the card */
 .additional-images {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
   border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-.additional-images img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
+/* Wrapper handles both hover and tap-expanded states */
+.image-wrapper {
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 200ms ease;
 }
 
-/* Close hint at the bottom of expanded card */
+/* When tapped on mobile — expands to full card width */
+.image-wrapper.image-expanded {
+  grid-column: 1 / -1;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+/* Expanded image fills more height */
+.image-wrapper.image-expanded img {
+  height: 260px;
+}
+
+/* Desktop hover — smoothly scales image up */
+@media (hover: hover) {
+  .image-wrapper:hover img {
+    transform: scale(1.06);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+  }
+}
+
+/* Collapse hint at the bottom of expanded card */
 .collapse-hint {
   margin-top: 12px;
   text-align: center;
